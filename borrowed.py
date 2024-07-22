@@ -10,8 +10,8 @@ def get_borrowed():
 
             cursor.execute(query)
 
-            for id, user_id, book_id, title, borrow_date in cursor.fetchall():
-                print(f'{id}. User ID: {user_id}, Book ID: {book_id}, Title: {title}, Borrow Date: {borrow_date}')
+            for id, user_id, book_id, borrow_date in cursor.fetchall():
+                print(f'{id}. User ID: {user_id}, Book ID: {book_id}, Borrow Date: {borrow_date}')
             
         except Error as e:
             print*f"Error: {e}"

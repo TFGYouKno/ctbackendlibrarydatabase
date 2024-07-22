@@ -14,7 +14,7 @@ def rent_book():
             cursor.execute(query, (title, ))
 
             id, title, author, availability = cursor.fetchall()[0]
-            print(f'book id#{id}, {title} by {author} is currently {availability}.')
+            print(f'{id}. {title} by {author} is currently {availability}.')
             
             if availability == "available for loan":
                 
@@ -27,22 +27,12 @@ def rent_book():
                 cursor.execute(query2, availability_update)
 
                 user_id = input("what is your member id:  ")
-                try:
-                    user_id = int(user_id)
-                except ValueError:
-                    print("Please enter a valid user id")
-                    return
-                
-                cursor.execute('SELECT * FROM users WHERE id = %s', (user_id, ))
-                if cursor.fetchone() is None:
-                    print("Please enter a valid user id")
-                    return
                 book_id = id
                 date_today = date.today()
 
-                add_to_junct = (user_id, book_id, title, date_today) 
+                add_to_junct = (user_id, book_id, date_today) 
 
-                query3 = 'INSERT INTO borrowed_books (user_id, book_id, title, borrow_date) VALUES (%s, %s, %s, %s)'
+                query3 = 'INSERT INTO borrowed_books (user_id, book_id, borrow_date) VALUES (%s, %s, %s)'
 
                 cursor.execute(query3, add_to_junct)
                 conn.commit()
@@ -53,6 +43,8 @@ def rent_book():
             
         except IndexError:
             print("Please enter a valid title and try again.")
+        except Exception:
+            print("Please enter a valid user from the repository")
 
         finally:
             if conn and conn.is_connected():

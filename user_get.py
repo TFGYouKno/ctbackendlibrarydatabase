@@ -14,7 +14,7 @@ def get_user():
             cursor.execute(query, (user_name,))
 
             id, user_name, email, phone = cursor.fetchall()[0]
-            print(f'{id}. Name: {user_name} Email: {email} Phone: {phone}')
+            print(f'user id:{id}. Name: {user_name} Email: {email} Phone: {phone}')
 
         except IndexError:
             print("Invalid entry, member not found. Check your spelling and try again")
